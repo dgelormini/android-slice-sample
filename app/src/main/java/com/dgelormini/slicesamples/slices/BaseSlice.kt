@@ -21,6 +21,8 @@ abstract class BaseSlice(private val context: Context, private val sliceUri: Uri
         context.contentResolver.notifyChange(sliceUri, null)
     }
 
+    abstract fun isTerminal() : Boolean
+
     abstract fun getSlice(): Slice
 
     fun createErrorSlice(): Slice {
@@ -41,6 +43,9 @@ abstract class BaseSlice(private val context: Context, private val sliceUri: Uri
     // TODO: Keep or kill? Can just return a Slice directly...
     class ErrorSlice(private val context: Context, private val sliceUri: Uri) :
         BaseSlice(context, sliceUri) {
+        override fun isTerminal(): Boolean {
+            return true
+        }
 
         override fun getSlice() = list(context, sliceUri, ListBuilder.INFINITY) {
             header {
@@ -65,6 +70,10 @@ abstract class BaseSlice(private val context: Context, private val sliceUri: Uri
 
     class Unknown(private val context: Context, private val sliceUri: Uri) :
         BaseSlice(context, sliceUri) {
+        override fun isTerminal(): Boolean {
+            return true
+        }
+
         override fun getSlice(): Slice {
             return list(context, sliceUri, ListBuilder.INFINITY) {
                 header {

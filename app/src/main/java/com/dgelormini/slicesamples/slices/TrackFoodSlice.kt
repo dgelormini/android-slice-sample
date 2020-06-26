@@ -43,6 +43,10 @@ class TrackFoodSlice(private val context: Context, private val sliceUri: Uri) :
         }
     }
 
+    override fun isTerminal(): Boolean {
+        return (currentState is SliceState.Success) || (currentState is SliceState.Error)
+    }
+
     override fun getSlice(): Slice {
         Log.d(TAG, "getSlice() called, current state: $currentState")
         return when (currentState) {

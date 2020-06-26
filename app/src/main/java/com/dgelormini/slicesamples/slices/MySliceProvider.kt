@@ -20,7 +20,14 @@ class MySliceProvider : SliceProvider() {
 
     override fun onBindSlice(sliceUri: Uri): Slice {
         Log.d(TAG, "onBindSlice() called for $sliceUri")
-        return slices.getOrPut(sliceUri) { createSlice(sliceUri) }.getSlice()
+        val lastBaseSlice = slices.getOrPut(sliceUri) { createSlice(sliceUri) }
+        val slice = lastBaseSlice.getSlice()
+
+        if (lastBaseSlice.isTerminal()) {
+            slices.remove(sliceUri)
+        }
+
+        return slice
     }
 
     private fun createSlice(sliceUri: Uri): BaseSlice {
