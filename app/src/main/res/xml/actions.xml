@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<actions>
+
+    <action intentName="actions.intent.RECORD_FOOD_OBSERVATION">
+        <!-- Tracking foods via Slice-->
+        <fulfillment
+            fulfillmentMode="actions.fulfillment.SLICE"
+            urlTemplate="content://com.dgelormini.slicesamples.slices.provider/track-food?referrer=assistant{&amp;foodName,mealType}">
+            <parameter-mapping
+                intentParameter="foodObservation.aboutFood.name"
+                urlParameter="foodName" />
+            <parameter-mapping
+                intentParameter="foodObservation.forMeal"
+                urlParameter="mealType" />
+        </fulfillment>
+    </action>
+
+</actions>
