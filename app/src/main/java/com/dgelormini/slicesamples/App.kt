@@ -6,6 +6,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        SliceUtils.grantAssistantPermissions(this)
+        // TODO: Below works if we call it here
+        // SliceUtils.grantAssistantPermissions(this)
     }
 }
